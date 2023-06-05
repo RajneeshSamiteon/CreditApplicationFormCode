@@ -1,12 +1,30 @@
 ({
-    // execute on load of component
-	doInit : function(component, event, helper) {
-		helper.loadCreditApplicationFormOTP(component, event, helper);
-	},
+    doInit : function(component, event, helper) {
+        var flag = 0;
+        try {
+            window.setInterval(
+                $A.getCallback(function() {
+                    flag += 1;
+                    helper.loadCreditApplicationFormCode(component, event, helper, flag);  
+                }), 3000
+            );   
+        }
+        catch(exception) {
+            let errorReferemce = {'className' : "CreditApplicationCode - Aura Controller",
+                                  'apexTrace' : "doInit",
+                                  'exceptionMsg' : exception.getMessage()};
+            helper.CreateExceptionLog(component, event, helper, errorReferemce);
+        }
+    },
     
-    // it generate the OTP for Credit Application Form
-    regenerateOTP : function(component, event, helper) {
-		helper.generateOTP(component, event, helper);
-	}
+    regenerateCode : function(component, event, helper) {
+        component.set('v.isDisableRegenrateButton',true);
+        helper.generateCreditFormCode(component, event, helper);
+    },
+    
+    handleCodeChange : function(component, event, helper) {
+        component.set("v.isCodeChange",true);
+        component.set('v.isDisableRegenrateButton',true);
+    }
     
 })

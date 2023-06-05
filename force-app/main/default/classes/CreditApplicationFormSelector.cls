@@ -104,16 +104,27 @@ public class CreditApplicationFormSelector {
     }
     
     public static List<Credit_Application_Form__c> getCreditApplicationsData(Set<Id> ContactIds){
-        List<Credit_Application_Form__c> lstCreditApplicationForm=[Select Id,Name,Application_Status__c,Contact__c from Credit_Application_Form__c where Contact__c IN :ContactIds AND (Application_Status__c='In Progress' OR Application_Status__c='Opened By Customer')];
+        List<Credit_Application_Form__c> lstCreditApplicationForm=[Select Id,Name,Application_Status__c,Contact__c
+                                                                   from Credit_Application_Form__c where
+                                                                   Contact__c IN :ContactIds 
+                                                                   AND (Application_Status__c='In Progress' OR
+                                                                        Application_Status__c='Opened By Customer')];
         
         return lstCreditApplicationForm;
     }
 
     public static List<Credit_Application_Form__c> getCreditApplicationFormByContactIds(Set<Id> contactIds) {
-        return [SELECT Id, Credit_Application_Code__c 
+        return [SELECT Id, Credit_Application_Code__c, Code_Generation_Time__c, Code_Expire_Time__c
                 FROM Credit_Application_Form__c 
                 WHERE Contact__c IN : contactIds 
                 LIMIT 1];
     }
-    
+	/*    
+    public static List<Credit_Application_Form__c> getCreditApplicationFormByIdsAndContactIds(Set<Id> creditFormIds,Set<Id> contactIds) {
+        return [SELECT Id, Credit_Application_Code__c, Code_Generation_Time__c, Code_Expire_Time__c
+                FROM Credit_Application_Form__c 
+                WHERE Id IN : creditFormIds AND Contact__c IN : contactIds 
+                LIMIT 1];
+    }
+    */
 }

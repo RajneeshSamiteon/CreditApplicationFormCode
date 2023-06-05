@@ -1,3 +1,12 @@
-.THIS.slds-fixed_card-height {
-    height: 85px;
+.THIS .isActivityLoading .slds-- {
+   position: relative !important;
+   top: -20px !important;
+}
+
+.THIS.card-style {
+    height: 90px;
+}
+
+.THIS .title {
+    margin-top: 6px;
 }
