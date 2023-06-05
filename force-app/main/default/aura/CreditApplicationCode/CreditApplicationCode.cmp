@@ -1,0 +1,42 @@
+<aura:component controller="CreditApplicationCodeController"
+                extends="c:HandleErrorModal"
+                implements="flexipage:availableForRecordHome,force:hasRecordId"
+                access="global" >
+    
+    <!-- execute on load of component -->
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.doInit}" />
+    
+    <aura:attribute name="title"
+                    type="String"
+                    access="global"
+                    default="Credit Application Form OTP"
+                    description="Keeps the OTP of Credit Application Form to display on the card" />
+    <aura:attribute name="otp"
+                    type="String"
+                    access="global"
+                    default="--None--"
+                    description="The Credit Application Form's OTP is kept there" />
+    
+    <!-- lightning-card start -->
+    <lightning:card class="slds-fixed_card-height">
+        <aura:set attribute="title">
+            <lightning:icon class="slds-m-right_x-small" iconName="standard:coupon_codes" size="small"/>
+            {!v.title}
+        </aura:set>
+        <div class="slds-grid">
+            <div class="slds-col slds-order_2 slds-large-order_1 slds-p-vertical_x-small slds-text-align_center">
+                <strong>OTP : </strong>{!v.otp}
+            </div>
+            <div class="slds-col slds-order_1 slds-large-order_2 slds-text-align_center">
+                <lightning:button variant="brand-outline" 
+                                  iconName="utility:refresh"
+                                  label="Generate OTP" 
+                                  title="Generate OTP" 
+                                  onclick="{!c.regenerateOTP}" />
+            </div>
+        </div>
+    </lightning:card>
+    <!-- lightning-card end -->
+</aura:component>
